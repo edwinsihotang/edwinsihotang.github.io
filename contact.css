@@ -27,15 +27,5 @@
     color: white;
   }
 
-  .nav-link a:hover{
-    background-color: (rgb(204, 223, 228)) !important;
-      color: rgb(96, 170, 189) !important;
-      border-bottom-style:solid !important;
-}
-
-.nav{
-    font-size: 25px;
-    font-weight: 500;
-    color: #2a3c7c;
-}
+  
 
