@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tabel Customer</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+    <link rel="stylesheet" href="fashion.css">
+    
+</head>
+<body>
+  <nav class="navbar navbar-light bg-info  fixed-top">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="#">
+          <img src="H.jpg" width="30" height="30" alt="Showroom Mobil">Showroom Mobil
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
+        <div class="offcanvas-header">
+          <h5 class="offcanvas-title" id="offcanvasNavbarLabel">Showroom Mobil</h5>
+          <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+        </div>
+        <div class="offcanvas-body">
+          <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
+            <li class="nav-item">
+              <a class="nav-link active" aria-current="page" href="#">Showroom Mobil</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="customer.html" target="blank">Customer</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="mobil.html" target="blank">Mobil</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="varianMobil.html" target="blank">Varian Mobil</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="penjual.html" target="blank">Penjual</a>
+              </li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+    <div id="app">
+
+        <div class="container">
+            <div class="py-5 text-center">
+              <h2>HAVIT</h2>
+              <p class="lead">Showroom Mobil</p>
+            </div>
+      
+              <div class="col-md-12 ">
+                <h4 class="mb-3">Customer Data
+                </h4>
+                <table class=" table table-striped table-dark table-bordered">
+                    <tr>
+                        <th>ID Customer</th>
+                        <th>Nama Customer</th>
+                        <th>Tempat Lahir</th>
+                        <th>Tanggal Lahir</th>
+                        <th>Jenis Kelamin</th>
+                        <th>Agama</th>
+                        <th>Alamat</th>
+                        <th>No Telp</th>
+                    </tr>
+                    <tr v-for="customers in customer">
+                        <td>{{ customers.id_customer }}</td>
+                        <td>{{ customers.nama_customer }}</td>
+                        <td>{{ customers.tempat_lahir }}</td>
+                        <td>{{ customers.tgl_lahir }}</td>
+                        <td>{{ customers.jenis_kelamin }}</td>
+                        <td>{{ customers.agama }}</td>
+                        <td>{{ customers.alamat }}</td>
+                        <td>{{ customers.no_telp }}</td>
+                        <td><button class="btn btn-md btn-warning" v-on:click="getEdit(customers)">Edit</button></td>
+                        <td><button class="btn btn-danger" v-on:click="getDelete(customers)">Delete</button></td>
+                    </li>
+                </table>
+
+                <div v-if="message" class="alert alert-success" role="alert">
+                    {{ message }}
+                </div>
+                
+            
+                <h4 class="mb-3">Customer Information</h4>
+                <form class="needs-validation" novalidate>
+                  <div class="row">
+                    <div class="col-md-6 mb-3 bg-secondary text-white">
+                      <label for="nama_customer">Nama Customer</label>
+                      <input  v-model="nama_customer" type="text" class="form-control" id="nama_customer" placeholder="" value="" required>
+                      <div class="invalid-feedback">
+                        Valid nama customer is required.
+                      </div>
+                    </div>
+
+                    <div class="col-md-6 mb-3 bg-secondary text-white">
+                      <label for="tempat_lahir">Tempat Lahir</label>
+                      <input v-model="tempat_lahir" type="text" class="form-control" id="tempat_lahir" placeholder="" value="" required>
+                      <div class="invalid-feedback">
+                        Valid tempat lahir is required.
+                      </div>
+                    </div>
+                  
+                    <div class="col-md-6 mb-3 bg-secondary text-white">
+                      <label for="tgl_lahir">Tanggal Lahir <span class="text-muted"></span></label>
+                      <input v-model="tgl_lahir" type="date" class="form-control" id="tgl_lahir" placeholder="">
+                      <div class="invalid-feedback">
+                        Your Tanggal Lahir is required.
+                      </div>
+                    </div>
+
+                    <div class="col-md-6 mb-3">
+                      <label for="jenis_kelamin">Jenis Kelamin</label><br> 
+                      <input type="radio" id="jenis_kelamin" value="Laki-Laki" checked="checked" class="form-check-input" v-model="jenis_kelamin">Laki-Laki
+                      <input type="radio" id="jenis_kelamin" value="Perempuan" checked="checked" class="form-check-input" v-model="jenis_kelamin">Perempuan
+                      <div class="invalid-feedback">
+                      Valid jenis kelamin is required.
+                      </div></div>
+
+                    <div class="col-md-6 mb-3 bg-secondary text-white">
+                      <label for="agama">Agama</label> 
+                      <select type="select" id="agama" v-model="agama" class="form-select form-select-lg" id="agama">
+                        <option value="Kristen">Kristen</option>
+                        <option value="Islam">Islam</option>
+                        <option value="Budha">Budha</option>
+                        <option value="Hindu">Hindu</option>
+                        <option value="Konghucu">Konghucu</option>
+                      </select>
+                      <div class="invalid-feedback">
+                      Valid last name is required.
+                      </div>
+                    </div>
+
+                    <div class="col-md-6 mb-3 bg-secondary text-white">
+                      <label for="alamat">Alamat <span class="text-muted"></span></label>
+                      <input v-model="alamat" type="text" class="form-control" id="alamat" placeholder="">
+                      <div class="invalid-feedback">
+                        Your Alamat is required.
+                      </div>
+                    </div>
+
+                    <div class="col-md-6 mb-3 bg-secondary text-white">
+                      <label for="no_telp"> No Telpon <span class="text-muted"></span></label>
+                      <input v-model="no_telp" type="number" class="form-control" id="no_telp" placeholder="">
+                      <div class="invalid-feedback">
+                        Your No Telp is required.
+                      </div>
+                    </div>
+                  </div> 
+                </form>
+                <hr class="mb-4">
+                <button v-if="!editMode && !deleteMode" v-on:click="createCustomer" class="btn btn-outline-warning btn-lg btn-block" type="submit">Submit Data</button>
+                <button class="btn btn-outline-danger btn-lg btn-block" v-on:click="resetForm()">Create new customer </button>
+                <button v-if="editMode" v-on:click="updateCustomer" class="btn btn-outline-dark btn-lg btn-block" type="submit">Update Data</button>
+                <button v-if="deleteMode" v-on:click="deleteCustomer" class="btn btn-outline-success btn-lg btn-block" type="submit">Delete Data</button>
+               
+              </div>
+            </div>
+            
+
+            <footer class="my-5 pt-5 text-muted text-center text-small">
+                <p class="mb-1" style="color: chartreuse; font-style:italic; background-color:darkcyan">&copy; 2022 EDWIN SIHOTANG</p>
+              </footer>
+
+    </div>
+    
+
+    <!-- Axios -->
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
+    <script>
+        var app = new Vue ({
+            el: '#app',
+            data: {
+                errors: [],
+                message: null,
+                customer:[],
+                customerIdEdit: null,
+                customerIdDelete: null,
+                editMode: false,
+                deleteMode: false,
+                nama_customer:'',
+                tempat_lahir:'',
+                tgl_lahir:'',
+                jenis_kelamin:'',
+                agama:'',
+                alamat:'',
+                no_telp:'',
+            },
+            mounted: function() {
+                this.getCustomer();
+            },
+            methods: {
+                getCustomer() {
+                    axios.get('https://621c4fff768a4e1020a6ccf7.mockapi.io/customer')
+                        .then(response => {
+                            this.customer = response.data;
+                            console.log(response);
+                        })
+                        .catch(error => {
+                            console.log(error);
+                        });
+                },
+                createCustomer: function(){
+                    axios.post('https://621c4fff768a4e1020a6ccf7.mockapi.io/customer', {
+                        nama_customer: this.nama_customer,
+                        tempat_lahir: this.tempat_lahir,
+                        tgl_lahir: this.tgl_lahir,
+                        jenis_kelamin: this.jenis_kelamin,
+                        agama: this.agama,
+                        alamat:this.alamat,
+                        no_telp:this.no_telp,
+                    })
+                    .then(response => {
+                            this.getCustomer();
+                            this.message = "Your data has been submitted";
+                            console.log(response);
+                    })
+                    .catch(error => {
+                            console.log(error);
+                    });
+                },
+                resetForm: function () {
+                    this.message = null;
+                    this.editMode = false;
+                    this.deleteMode = false;
+                    this.customerIdEdit = null;
+                    this.nama_customer = null;
+                    this.tempat_lahir = null;
+                    this.tgl_lahir = null;
+                    this.jenis_kelamin = null;
+                    this.agama = null;
+                    this.alamat = null;
+                    this.no_telp = null;
+                },
+                getEdit: function (customers) {
+                    this.message = null;
+                    this.editMode = true;
+                    this.deleteMode = false;
+                    this.customerIdEdit = customers.id_customer;
+                    this.nama_customer = customers.nama_customer;
+                    this.tempat_lahir = customers.tempat_lahir;
+                    this.tgl_lahir = customers.tgl_lahir;
+                    this.jenis_kelamin = customers.jenis_kelamin;
+                    this.agama = customers.agama;
+                    this.alamat = customers.alamat;
+                    this.no_telp = customers.no_telp;
+                },
+                getDelete: function (customers) {
+                    this.message = null;
+                    this.deleteMode = true;
+                    this.editMode = false;
+                    this.customerIdDelete = customers.id_customer;
+                    this.nama_customer = customers .nama_customer;
+                    this.tempat_lahir = customers.tempat_lahir;
+                    this.tgl_lahir = customers.tgl_lahir;
+                    this.jenis_kelamin = customers.jenis_kelamin;
+                    this.agama = customers.agama;
+                    this.alamat = customers.alamat;
+                    this.no_telp = customers.no_telp;
+                },
+                updateCustomer: function () {
+                    axios.put(`https://621c4fff768a4e1020a6ccf7.mockapi.io/customer/${this.customerIdEdit}`, {
+                        nama_customer: this.nama_customer,
+                        tempat_lahir: this.tempat_lahir,
+                        tgl_lahir: this.tgl_lahir,
+                        jenis_kelamin: this.jenis_kelamin,
+                        agama: this.agama,
+                        alamat:this.alamat,
+                        no_telp:this.no_telp,
+                        })
+                        .then(res => {
+                            this.message = "Your data has been updated";
+                            this.getCustomer();
+                        })
+                        .catch(err => {
+                            console.log(err);
+                        })
+                },
+                deleteCustomer: function () {
+                    axios.delete(`https://621c4fff768a4e1020a6ccf7.mockapi.io/customer/${this.customerIdDelete}`)
+                        .then(res => {
+                            this.message = "Your data has been deleted";
+                            this.getCustomer();
+                        })
+                        .catch(err => {
+                            console.log(err);
+                        })
+                }
+            }
+        })
+        
+    </script>
+
+
+</body>
+</html>

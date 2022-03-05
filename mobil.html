@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tabel Mobil</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+    <link rel="stylesheet" href="fashion.css">
+    
+</head>
+<body>
+  <nav class=" navbar navbar-light bg-info fixed-top">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="#">
+        <img src="H.jpg" width="30" height="30" alt="Showroom Mobil">Showroom Mobil
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
+        <div class="offcanvas-header">
+          <h5 class="offcanvas-title" id="offcanvasNavbarLabel">Showroom Mobil</h5>
+          <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+        </div>
+        <div class="offcanvas-body">
+          <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
+            <li class="nav-item">
+              <a class="nav-link active" aria-current="page" href="#">Showroom Mobil</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="customer.html" target="blank">Customer</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="mobil.html." target="blank">Mobil</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="varianMobil.html" target="blank">Varian Mobil</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="penjual.html" target="blank">Penjual</a>
+              </li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+    <div id="app">
+
+        <div class="container">
+            <div class="py-5 text-center">
+              <h2>HAVIT</h2>
+              <p class="lead">Showroom Mobil</p>
+            </div>
+      
+              <div class="col-md-12">
+                <h4 class="mb-3">Data Mobil 
+                </h4>
+                <table class="table table-striped table-dark table-bordered">
+                    <tr>
+                        <th>Id Mobil</th>
+                        <th>Id Customer</th>
+                        <th>Id varian</th>
+                        <th>Id penjual</th>
+                        <th>No Plat</th>
+                        <th>Tahun Pembuatan</th>
+                        <th>No Rangka</th>
+                        <th>No Mesin</th>
+                        <th>Warna</th>
+                        <th>Bahan Bakar</th>
+                        <th>No BPKB</th>
+                        <th>Tanggal Jual</th>
+                    </tr>
+                    <tr v-for="mobils in mobil">
+                        <td>{{ mobils.id_mobil }}</td>
+                        <td>{{ mobils.id_customer }}</td>
+                        <td>{{ mobils.id_varian }}</td> 
+                        <td>{{ mobils.id_penjual }}</td>
+                        <td>{{ mobils.no_plat }}</td>
+                        <td>{{ mobils.thn_pembuatan }}</td>
+                        <td>{{ mobils.no_rangka }}</td>
+                        <td>{{ mobils.no_mesin }}</td>
+                        <td>{{ mobils.warna }}</td>
+                        <td>{{ mobils.bahan_bakar }}</td>
+                        <td>{{ mobils.no_bpkb }}</td>
+                        <td>{{ mobils.tgl_jual }}</td>
+                        <td><button class="btn btn-md btn-warning" v-on:click="getEdit(mobils)">Edit</button></td>
+                        <td><button class="btn btn-danger" v-on:click="getDelete(mobils)">Delete</button></td>
+                    </li>
+                </table>
+
+                <div v-if="message" class="alert alert-success" role="alert">
+                    {{ message }}
+                </div>
+                
+            
+                <h4 class="mb-3">Mobil Information</h4>
+                <form class="needs-validation" novalidate>
+                  <div class="row">
+                    <div class="col-md-6 mb-3 bg-secondary text-white">
+                      <label for="id_varian">Id Varian</label>
+                      <input  v-model="id_varian" type="text" class="form-control" id="id_varian" placeholder="" value="" required>
+                      <div class="invalid-feedback">
+                        Valid Id varian is required.
+                      </div>
+                    </div>
+
+                   
+                    <div class="col-md-6 mb-3 bg-secondary text-white">
+                      <label for="id_penjual">Id Penjual</label>
+                      <input v-model="id_penjual" type="text" class="form-control" id="id_Penjual" placeholder="" value="" required>
+                      <div class="invalid-feedback">
+                        Valid id penjual is required.
+                      </div>
+                    </div>
+
+                    <div class="col-md-6 mb-3 bg-secondary text-white">
+                      <label for="no_plat">No Plat</label>
+                      <input v-model="no_plat" type="text" class="form-control" id="no_plat" placeholder="" value="" required>
+                      <div class="invalid-feedback">
+                        Valid No Plat is required.
+                      </div>
+                    </div>
+
+                    <div class="col-md-6 mb-3 bg-secondary text-white">
+                      <label for="thn_pembuatan">Tahun Pembuatan</label>
+                      <input v-model="thn_pembuatan" type="text" class="form-control" id="thn_pembuatan" placeholder="" value="" required>
+                      <div class="invalid-feedback">
+                        Valid tahun pembuatan is required.
+                      </div>
+                    </div>
+
+                    <div class="col-md-6 mb-3 bg-secondary text-white">
+                      <label for="no_rangka">No Rangka</label>
+                      <input v-model="no_rangka" type="text" class="form-control" id="no_rangka" placeholder="" value="" required>
+                      <div class="invalid-feedback">
+                        Your No Rangka is required.
+                      </div>
+                    </div>
+
+                    <div class="col-md-6 mb-3 bg-secondary text-white">
+                      <label for="no_mesin">No Mesin</label>
+                      <input v-model="no_mesin" type="text" class="form-control" id="no_mesin" placeholder="" value="" required>
+                      <div class="invalid-feedback">
+                        Your No Mesin is required.
+                      </div>
+                    </div>
+
+                    <div class="col-md-6 mb-3 bg-secondary text-white">
+                      <label for="warna">Warna</label>
+                      <input v-model="warna" type="text" class="form-control" id="warna" placeholder="" value="" required>
+                      <div class="invalid-feedback">
+                        Your Warna is required.
+                      </div>
+                    </div>
+
+                    <div class="col-md-6 mb-3 bg-secondary text-white">
+                      <label for="bahan_bakar">Bahan Bakar</label>
+                      <input v-model="bahan_bakar" type="text" class="form-control" id="bahan_bakar" placeholder="" value="" required>
+                      <div class="invalid-feedback">
+                        Your Bahan Bakar is required.
+                      </div>
+                    </div>
+
+                    <div class="col-md-6 mb-3 bg-secondary text-white">
+                      <label for="no_bpkb">No BPKB</label>
+                      <input v-model="no_bpkb" type="text" class="form-control" id="no_bpkb" placeholder="" value="" required>
+                      <div class="invalid-feedback">
+                        Your No BPKB is required.
+                      </div>
+                    </div>
+
+                    <div class="col-md-6 mb-3 bg-secondary text-white">
+                      <label for="tgl_jual">Tanggal Jual</label>
+                      <input v-model="tgl_jual" type="date" class="form-control" id="tgl_jual" placeholder="" value="" required>
+                      <div class="invalid-feedback">
+                        Your Tanggal Jual is required.
+                      </div>
+                    </div>
+                  </div>
+
+                </form>
+
+                <hr class="mb-4">
+                <button v-if="!editMode && !deleteMode" v-on:click="createMobil" class="btn btn-outline-warning btn-lg btn-block" type="submit">Submit Data</button>
+                <button class="btn btn-outline-danger btn-lg btn-block" v-on:click="resetForm()">new mobil </button>
+                <button v-if="editMode" v-on:click="updateMobil" class="btn btn-outline-dark btn-lg btn-block" type="submit">Update Data</button>
+                <button v-if="deleteMode" v-on:click="deleteMobil" class="btn btn-outline-success btn-lg btn-block" type="submit">Delete Data</button>
+               
+              </div>
+            </div>
+
+            <footer class="my-5 pt-5 text-muted text-center text-small">
+              <p class="mb-1" style="color: chartreuse; font-style:italic; background-color:darkcyan">&copy; 2022 EDWIN SIHOTANG</p>
+            </footer>
+
+    </div>
+    
+
+    <!-- Axios -->
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
+    <script>
+        var app = new Vue ({
+            el: '#app',
+            data: {
+                errors: [], 
+                message: null,
+                mobil:[],
+                mobilIdEdit: null,
+                mobilIdDelete: null,
+                editMode: false,
+                deleteMode: false,
+                id_customer:'',
+                id_varian:'',
+                id_penjual:'',
+                no_plat:'',
+                thn_pembuatan:'',
+                no_rangka:'',
+                no_mesin:'',
+                warna:'',
+                bahan_bakar:'',
+                no_bpkb:'',
+                tgl_jual:'',
+            },
+            mounted: function() {
+                this.getMobil();
+            },
+            methods: {
+                getMobil() {
+                    axios.get('https://621c4fff768a4e1020a6ccf7.mockapi.io/mobil')
+                        .then(response => {
+                            this.mobil = response.data;
+                            console.log(response);
+                        })
+                        .catch(error => {
+                            console.log(error);
+                        });
+                },
+                createMobil: function(){
+                    axios.post('https://621c4fff768a4e1020a6ccf7.mockapi.io/mobil', {
+                        id_customer: this.nama_mobil,
+                        id_varian: this.id_varian,
+                        id_penjual: this.id_penjual,
+                        no_plat: this.no_plat,
+                        thn_pembuatan: this.thn_pembuatan,
+                        no_rangka:this.alamat,
+                        no_mesin:this.no_mesin,
+                        warna:this.warna,
+                        bahan_bakar:this.bahan_bakar,
+                        no_bpkb:this.no_bpkb,
+                        tgl_jual:this.tgl_jual,
+                    })
+                    .then(response => {
+                            this.getMobil();
+                            this.message = "Your data has been submitted";
+                            console.log(response);
+                    })
+                    .catch(error => {
+                            console.log(error);
+                    });
+                },
+                resetForm: function (mobils) {
+                    this.message = null;
+                    this.editMode = false;
+                    this.deleteMode = false;
+                    this.userIdEdit = null;
+                    this.id_customer = null;
+                    this.id_varian = null;
+                    this.id_penjual = null;
+                    this.no_plat = null;
+                    this.thn_pembuatan = null;
+                    this.no_rangka = null;
+                    this.no_mesin = null;
+                    this.warna = null;
+                    this.bahan_bakar = null;
+                    this.no_bpkb = null;
+                    this.tgl_jual = null;
+                },
+                getEdit: function (mobils) {
+                    this.message = null;
+                    this.editMode = true;
+                    this.deleteMode = false;
+                    this.mobilIdEdit = mobils.id_mobil;
+                    this.id_customer = mobils.id_customer;
+                    this.id_varian = mobils.id_varian;
+                    this.id_penjual = mobils.id_penjual;
+                    this.no_plat = mobils.no_plat;
+                    this.thn_pembuatan = thn_pembuatan;
+                    this.no_rangka = mobils.no_rangka;
+                    this.no_mesin = mobils.no_mesin;
+                    this.warna = mobils.warna;
+                    this.bahan_bakar = mobils.bahan_bakar;
+                    this.no_bpkb = mobils.no_bpkb;
+                    this.tgl_jual = mobils.tgl_jual;
+                },
+                getDelete: function (mobils) {
+                    this.message = null;
+                    this.deleteMode = true;
+                    this.editMode = false;
+                    this.mobilIdDelete = mobils.id_mobil;
+                    this.id_customer = mobils.id_customer;
+                    this.id_varian = mobils.id_varian;
+                    this.id_penjual = mobils.id_penjual;
+                    this.no_plat = mobils.no_plat;
+                    this.thn_pembuatan = thn_pembuatan;
+                    this.no_rangka = mobils.no_rangka;
+                    this.no_mesin = mobils.no_mesin;
+                    this.warna = mobils.warna;
+                    this.bahan_bakar = mobils.bahan_bakar;
+                    this.no_bpkb = mobils.no_bpkb;
+                    this.tgl_jual = mobils.tgl_jual;
+                },
+                updateMobil: function () {
+                  axios.put(`https://621c4fff768a4e1020a6ccf7.mockapi.io/mobil/${this.mobilIdEdit}`, {
+                      id_mobil: this.id_mobil,
+                      id_varian: this.id_varian,
+                      id_penjual: this.id_penjual,
+                      thn_pembuatan: this.thn_pembuatan,
+                      no_rangka: this.no_rangka,
+                      no_mesin:this.no_mesin,
+                      warna:this.warna,
+                      bahan_bakar:this.bahan_bakar,
+                      no_bpkb:this.no_bpkb,
+                      tgl_jual:this.tgl_jual
+                      })
+                      .then(res => {
+                          this.message = "Your data has been updated";
+                          this.getMobil();
+                      })
+                      .catch(err => {
+                          console.log(err);
+                      })
+              },
+                deleteMobil: function () {
+                    axios.delete(`https://621c4fff768a4e1020a6ccf7.mockapi.io/mobil/${this.mobilIdDelete}`)
+                        .then(res => {
+                            this.message = "Your data has been deleted";
+                            this.getMobil();
+                        })
+                        .catch(err => {
+                            console.log(err);
+                        })
+                }
+            }
+        })
+        
+    </script>
+
+
+</body>
+</html>

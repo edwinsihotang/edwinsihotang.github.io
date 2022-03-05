@@ -1,0 +1,15 @@
+body,html {
+    scroll-behavior: smooth;
+    background-color: rgb(221, 241, 235);
+}
+
+table{
+    font-family:'Times New Roman', Times, serif ;
+    font-style: italic;
+    font-display:initial
+}
+
+form{
+    font-style: italic;
+    font-family: "Audiowide", sans-serif;
+}
